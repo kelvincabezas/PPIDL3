@@ -5,7 +5,7 @@ def display():
     st.image('resources/cabecera.jpg', use_column_width=True)
     st.markdown("<br><br>", unsafe_allow_html=True) #Esto lo utilizamos para generar más espacio y darle aire para que respire el texto
     # Título
-    st.markdown("<h1 style='text-align: center;'></h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Desarrollo de Modelos Predictivos y Estrategias de Implementación para Optimizar la Productividad y Rentabilidad de los Pescadores Artesanales en la caleta COISHCO - 2024</h1>", unsafe_allow_html=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([5,0.5,2])
