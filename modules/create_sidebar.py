@@ -1,7 +1,7 @@
 # modules/create_sidebar.py
 import streamlit as st
 from streamlit_option_menu import option_menu
-from paginas import inicio, datos, eda, aviones, modelo, sobre_nosotros, sobre_proyecto
+from paginas import inicio, datos, eda, modelo_predictivo
 
 def create_sidebar():
     # Añadir texto personalizado en el sidebar con markdown y HTML
