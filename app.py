@@ -4,3 +4,6 @@ import streamlit as st
 
 # Llama a set_page_config al inicio y asegúrate de que es el primer comando de Streamlit usado en el script.
 set_global_page_config()
+
+# Importaciones adicionales y lógica de la aplicación aquí
+from modules.create_sidebar import create_sidebar
