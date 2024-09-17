@@ -11,8 +11,7 @@ def create_sidebar():
         f'APAZA PEREZ OSCAR GONZALO
         CABEZAS HUANIO RUBEN KELVIN
         RUIZ ALVA JERSON ENMANUEL
-        PONCE DE LEON TORRES FABYOLA KORAYMA
-'
+        PONCE DE LEON TORRES FABYOLA KORAYMA'
         f'</div>',
         unsafe_allow_html=True
     )
