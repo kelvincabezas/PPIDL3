@@ -19,8 +19,8 @@ def create_sidebar():
 
     # Crear el menú de opciones en el sidebar con option_menu
     with st.sidebar:
-        selected = option_menu("Menú", ["Inicio", "Datos", "EDA", "Vuelos en USA", "JetSet Predictor (JSP)", "Sobre el proyecto", "Sobre nosotros"],
-            icons=["house", "database", "bar-chart-line", "airplane", "cpu", "book", "people"],
+        selected = option_menu("Menú", ["Inicio", "Datos", "EDA", "Modelo Predictivo"],
+            icons=["house", "database", "bar-chart-line", "airplane"],
             menu_icon="cast", default_index=0, orientation="vertical")
 
     # Llama a la función de la página correspondiente en función de la selección
@@ -30,11 +30,5 @@ def create_sidebar():
         datos.display()
     elif selected == "EDA":
         eda.display()
-    elif selected == "Vuelos en USA":
+    elif selected == "Modelo Predictivo":
         aviones.display()
-    elif selected == "JetSet Predictor (JSP)":
-        modelo.display()
-    elif selected == "Sobre el proyecto":
-        sobre_proyecto.display()
-    elif selected == "Sobre nosotros":
-        sobre_nosotros.display()
