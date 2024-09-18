@@ -7,7 +7,7 @@ def create_sidebar():
     # Añadir texto personalizado en el sidebar con markdown y HTML
     st.sidebar.markdown(
         f'<div style="text-align: center; font-size: 18px; margin-bottom: 30px;">'
-        f'Proyecto realizado por<br>'
+        f'Proyecto realizado por:<br>'
         f'APAZA PEREZ OSCAR GONZALO<br>'
         f'CABEZAS HUANIO RUBEN KELVIN<br>'
         f'RUIZ ALVA JERSON ENMANUEL<br>'
