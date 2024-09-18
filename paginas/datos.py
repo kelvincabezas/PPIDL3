@@ -1,5 +1,5 @@
 import streamlit as st
- 
+import pandas as pd 
 
 def display():
     st.title('Extracción de datos y explicación')
@@ -12,7 +12,11 @@ def display():
 
     st.markdown("<br><br>", unsafe_allow_html=True)
  
- 
+    # Cargar los datos
+    df = pd.read_excel('data/data.xlsx')
+
+    st.write("### Vista previa de los datos")
+    st.write(df.head())
  
 # Llama a la función para mostrar la página
 display()
