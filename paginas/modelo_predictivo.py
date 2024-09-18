@@ -27,14 +27,6 @@ def display():
     Comencemos visualizando algunos gráficos estadisticos referentes a la actividad pesquera de la zona
     """)
 
- 
-    # Descargar la matriz de correlación
-    st.subheader('Descargar Matriz de Correlación')
-    csv = correlation_matrix.to_csv(index=True)
-    st.download_button(label="Descargar Matriz de Correlación como CSV",
-                    data=csv,
-                    file_name='matriz_correlacion.csv',
-                    mime='text/csv')
 
     # Seleccionar la opción (especie o embarcación)
     opcion = st.selectbox("Seleccionar el enfoque", ["Embarcación", "Especie"], key="enfoque_selectbox")
