@@ -1,5 +1,5 @@
 import streamlit as st
-from modules.datos_page.data_count import cargar_y_contar_datos
+ 
 
 def display():
     st.title('Extracción de datos y explicación')
@@ -273,113 +273,6 @@ def display():
     st.markdown("<br><br><br>", unsafe_allow_html=True)
     st.header('Obtención de las coordenadas de los aeropuertos de Estados Unidos')
 
-    st.markdown("""
-    Tras haber recolectado y procesado los datos iniciales de vuelos y días festivos, el siguiente paso en nuestro proyecto implica la visualización geográfica de estos datos. Para ello, es esencial disponer de las coordenadas precisas de cada aeropuerto en Estados Unidos. La importancia de integrar estos datos geoespaciales radica en nuestra capacidad para presentar información de manera más intuitiva y accesible mediante mapas interactivos.
-
-    La utilización de las coordenadas de los aeropuertos nos permite implementar visualizaciones en mapas mediante la biblioteca Folium, una herramienta poderosa para la creación de mapas interactivos en Python. Estos mapas no solo enriquecerán visualmente nuestra presentación de datos, sino que también facilitarán análisis más complejos, como la evaluación de patrones de tráfico aéreo y la identificación de zonas con alta frecuencia de retrasos.
-
-    Así, la obtención de las coordenadas geográficas se convierte en un componente crucial para la expansión de nuestro análisis, permitiendo no solo una mejor comprensión de la distribución geográfica de los aeropuertos y su actividad, sino también ofreciendo una base sólida para futuras investigaciones y desarrollos dentro del proyecto.
-    """)
-    st.markdown("<br><br>", unsafe_allow_html=True)
-    colizq, colder = st.columns([1, 1.5])
-
-    with colizq:
-        st.subheader('**Proceso de obtención de coordenadas**')
-        st.markdown("""
-        El proceso para adquirir las coordenadas de los aeropuertos implica varias etapas críticas, comenzando por la identificación de fuentes de datos confiables y culminando con la integración de estas coordenadas en nuestro conjunto de datos existente. Uno de los primeros pasos es la consolidación de los datos de aeropuertos para asegurar que manejamos un conjunto único y preciso para cada ubicación.
-
-        Para comenzar, se realiza una limpieza inicial de los datos, donde se separan y preparan los aeropuertos de origen y destino. Dado que nuestros datos incluyen tanto el aeropuerto de origen como el de destino para cada vuelo, es esencial reducir estos a una lista única para evitar duplicidades y simplificar el análisis posterior.
-
-        Esta preparación incluye la creación de dos dataframes temporales, uno para los aeropuertos de origen y otro para los de destino, los cuales luego se concatenan para formar un único dataframe. Posteriormente, eliminamos los duplicados y reorganizamos las columnas para que el dataframe final solo contenga información única sobre cada aeropuerto, incluyendo su nombre, ciudad y estado.
-        """)
-
-    with colder:
-        st.code("""
-        # Código para consolidar los aeropuertos en un dataframe único
-        df_origen = df_aviones[['aeropuerto_origen', 'ciudad_origen', 'estado_origen']].copy()
-        df_destino = df_aviones[['aeropuerto_destino']].copy()
-        df_destino.columns = ['aeropuerto_origen']
-        df_destino['ciudad_origen'] = None
-        df_destino['estado_origen'] = None
-
-        # Concatenar los dataframes de origen y destino
-        df_aeropuertos_concatenados = pd.concat([df_origen, df_destino])
-
-        # Eliminar duplicados y resetear el índice
-        df_aeropuertos_unicos = df_aeropuertos_concatenados.drop_duplicates(subset=['aeropuerto_origen'])
-        df_aeropuertos_unicos.reset_index(drop=True, inplace=True)
-
-        # Renombrar las columnas para claridad
-        df_aeropuertos_unicos.rename(columns={
-            'aeropuerto_origen': 'nombre_aeropuerto',
-            'ciudad_origen': 'ciudad',
-            'estado_origen': 'estado'
-        }, inplace=True)
-
-        print(df_aeropuertos_unicos)
-        """, language='python')
-
-    st.markdown("""
-    Con este proceso, aseguramos que cada aeropuerto esté representado una sola vez en nuestra base de datos, lo cual es crucial para la etapa siguiente donde se vincularán las coordenadas geográficas. La claridad y precisión en esta fase son fundamentales para evitar errores en el mapeo y en la visualización de datos.
-    """)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.image('sources/map_usa.jpg', use_column_width=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.header('Obtención de Coordenadas Usando la API de Foursquare')
-
-    col_izq, col_der = st.columns([3, 1])
-
-    with col_izq:
-        st.code("""
-        # API de Foursquare
-        CLIENT_ID = "xxxxxxxxxxxxxxxx"
-        CLIENT_SECRET = "xxxxxxxxxxxxxxxxx"
-        API_KEY = "xxxxxxxxxxxxxxxxx"
-
-        headers = {"Accept": "application/json", "Authorization": API_KEY}
-
-        df_aeropuertos_unicos['latitude'] = None
-        df_aeropuertos_unicos['longitude'] = None
-        df_aeropuertos_unicos['direccion'] = None
-
-        for index, row in df_aeropuertos_unicos.iterrows():
-            url_params = {
-                "query": "airport" + row['nombre_aeropuerto'],
-                "near": f"{row['ciudad']}, {row['estado']}, USA",
-                "limit": 1
-            }
-
-            response = requests.get(url="https://api.foursquare.com/v3/places/search", params=url_params, headers=headers)
-
-            if response.status_code == 200:
-                data = response.json()
-                
-                if data['results']:
-                    result = data['results'][0] 
-                    latitude = result['geocodes']['main']['latitude']
-                    longitude = result['geocodes']['main']['longitude']
-                    direccion = result['location']['formatted_address']
-                
-                    df_aeropuertos_unicos.at[index, 'latitude'] = latitude
-                    df_aeropuertos_unicos.at[index, 'longitude'] = longitude
-                    df_aeropuertos_unicos.at[index, 'direccion'] = direccion
-            else:
-                print(f"Error en la fila {index} con el aeropuerto {row['nombre_aeropuerto']}. Respuesta: {response.status_code}")
-
-        print(df_aeropuertos_unicos.head())
-            """, language='python')
-
-    with col_der:
-        st.markdown("""
-        **Explicación del proceso de uso de la API de Foursquare**
-
-        Hemos decidido utilizar la API de Foursquare para obtener las coordenadas geográficas de los aeropuertos debido a la familiaridad con esta plataforma durante nuestra formación en Hack a Boss. Al buscar por palabras clave relacionadas con "aeropuerto" y ciudades específicas, esperábamos ubicar precisamente cada aeropuerto.
-
-        Aunque la API funcionó bien en muchos casos, es importante destacar que la precisión de la ubicación no fue del 100%. En ocasiones, los resultados indicaban posiciones centradas en la ciudad en lugar del aeropuerto exacto, o cerca de este. Aunque consideramos corregir estos datos manualmente, decidimos que no era prioritario dado que la precisión absoluta no era crítica para nuestros propósitos.
-
-        Posteriormente, al utilizar estas coordenadas en mapas de Folium, observamos y corregimos algunos errores evidentes, como aeropuertos incorrectamente ubicados en la Ciudad de México o en Trinidad y Tobago en lugar de Guam. Estos ajustes fueron posibles gracias a nuestra comprensión geográfica y a las capacidades interactivas de Folium, que permitieron una revisión visual directa de las ubicaciones.
-        """)
- 
  
 
 
