@@ -27,12 +27,12 @@ def display():
     """, unsafe_allow_html=True)
     
     st.markdown("<h3 style='text-align: center;'>Objetivos</h3><br>", unsafe_allow_html=True)
-    colizq, colder = st.columns(2)
+    colizq 
     with colizq:
         
         st.markdown("""
             Como objetivo general planteamos el siguiente:
-            Determinar las condiciones óptimas para la pesca y su impacto en el valor comercial de diferentes especies, considerando la mejor hora para pescar y la relación entre la talla y el precio.
+            **Determinar las condiciones óptimas para la pesca y su impacto en el valor comercial de diferentes especies, considerando la mejor hora para pescar y la relación entre la talla y el precio.**
 
 
             1. Identificar las horas del día más productivas para la pesca artesanal en la caleta Coishco mediante el análisis de la relación entre la hora de captura y el volumen de pesca utilizando modelos predictivos.
