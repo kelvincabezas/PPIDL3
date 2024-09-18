@@ -27,7 +27,7 @@ def display():
     """, unsafe_allow_html=True)
     
     st.markdown("<h3 style='text-align: center;'>Objetivos</h3><br>", unsafe_allow_html=True)
-    colizq 
+    colizq, colder = st.columns(4)
     with colizq:
         
         st.markdown("""
