@@ -27,6 +27,9 @@ def display():
     Comencemos visualizando algunos gráficos estadisticos referentes a la actividad pesquera de la zona
     """)
 
+    # Crear el escalador
+    scaler = MinMaxScaler()
+
     df_ = df.drop(columns=['Inicio_Faena', 'Inicio_Venta'])
     # Aplicar la normalización
     df_normalized = df_.copy()
