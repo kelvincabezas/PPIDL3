@@ -26,22 +26,19 @@ def display():
    
     """, unsafe_allow_html=True)
     
-    st.markdown("<h3 style='text-align: center;'>Objetivos</h3><br>", unsafe_allow_html=True)
-    colizq, colder = st.columns(0)
-    with colizq:
-        
-        st.markdown("""
-            Como objetivo general planteamos el siguiente:
-            **Determinar las condiciones óptimas para la pesca y su impacto en el valor comercial de diferentes especies, considerando la mejor hora para pescar y la relación entre la talla y el precio.**
+    st.markdown("<h3 style='text-align: center;'>Objetivos</h3><br>", unsafe_allow_html=True)        
+    st.markdown("""
+        Como objetivo general planteamos el siguiente:
+        **Determinar las condiciones óptimas para la pesca y su impacto en el valor comercial de diferentes especies, considerando la mejor hora para pescar y la relación entre la talla y el precio.**
 
 
-            1. Identificar las horas del día más productivas para la pesca artesanal en la caleta Coishco mediante el análisis de la relación entre la hora de captura y el volumen de pesca utilizando modelos predictivos.
+        1. Identificar las horas del día más productivas para la pesca artesanal en la caleta Coishco mediante el análisis de la relación entre la hora de captura y el volumen de pesca utilizando modelos predictivos.
 
-            2. Evaluar la relación entre la talla de los peces y su precio por kilogramo, diferenciando entre las distintas especies capturadas en la caleta Coishco, a través de técnicas de regresión aplicadas en Machine Learning.
+        2. Evaluar la relación entre la talla de los peces y su precio por kilogramo, diferenciando entre las distintas especies capturadas en la caleta Coishco, a través de técnicas de regresión aplicadas en Machine Learning.
 
-            3. Comparar los volúmenes de captura obtenidos en diferentes horarios del día para determinar las condiciones más favorables para la pesca artesanal, utilizando análisis predictivos.
+        3. Comparar los volúmenes de captura obtenidos en diferentes horarios del día para determinar las condiciones más favorables para la pesca artesanal, utilizando análisis predictivos.
 
-            4. Validar un modelo de Machine Learning que permita predecir el volumen de captura y optimizar la estrategia pesquera en función de las condiciones ambientales y biológicas presentes en la caleta Coishco.
+        4. Validar un modelo de Machine Learning que permita predecir el volumen de captura y optimizar la estrategia pesquera en función de las condiciones ambientales y biológicas presentes en la caleta Coishco.
 
-            """)
+        """)
         
