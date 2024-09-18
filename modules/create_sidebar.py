@@ -11,7 +11,7 @@ def create_sidebar():
         f'APAZA PEREZ OSCAR GONZALO<br>'
         f'CABEZAS HUANIO RUBEN KELVIN<br>'
         f'RUIZ ALVA JERSON ENMANUEL<br>'
-        f'PONCE DE LEON TORRES FABYOLA KORAYMA<br>'
+        f'PONCE DE LEON TORRES FABYOLA<br>'
         f'</div>',
         unsafe_allow_html=True
     )
@@ -19,7 +19,7 @@ def create_sidebar():
     # Crear el menú de opciones en el sidebar con option_menu
     with st.sidebar:
         selected = option_menu("Menú", ["Inicio", "Datos", "EDA", "Modelo Predictivo"],
-            icons=["house", "database", "bar-chart-line", "ship"],
+            icons=["house", "database", "bar-chart-line", "graph-up-arrow"],
             menu_icon="cast", default_index=0, orientation="vertical")
 
     # Llama a la función de la página correspondiente en función de la selección
