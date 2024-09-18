@@ -1,6 +1,9 @@
 # paginas/eda.py
 import streamlit as st
 import pandas as pd  
+import plotly.express as px
+import plotly.graph_objects as go
+import seaborn as sns
 
 def display():
     st.markdown("<h2 style='text-align: center;'>Página de análisis exploratorio de datos (EDA)</h2>", unsafe_allow_html=True)
