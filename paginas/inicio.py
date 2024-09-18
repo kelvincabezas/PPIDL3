@@ -23,8 +23,6 @@ def display():
             descartan en altamar los especímenes de menor tamaño para evitar sanciones, lo que incrementa la mortalidad 
             de los peces y distorsiona la información y monitoreo de las especies, según el IMARPE.
         </div>
-        <div style='text-align: justify;'>
-            Mediante el uso de Streamlit, hemos logrado presentar nuestros resultados de manera dinámica y accesible, proporcionando a los usuarios la posibilidad de interactuar con los datos y explorar en profundidad las diversas facetas de nuestro análisis. Este proyecto refleja no solo el aprendizaje alcanzado en Hack a Boss, sino también nuestra determinación por aplicar la ciencia de datos en la solución de problemas prácticos del mundo real. Confiamos en que los insights y visualizaciones que ofrecemos sean tanto informativos como de utilidad práctica para los interesados.
-        </div>
+   
     """, unsafe_allow_html=True)
     
