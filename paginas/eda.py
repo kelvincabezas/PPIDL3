@@ -7,6 +7,12 @@ import seaborn as sns
 import folium
 import matplotlib.pyplot as plt
 
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from streamlit_folium import folium_static
+
 def display():
     st.markdown("<h2 style='text-align: center;'>Página de análisis exploratorio de datos (EDA)</h2>", unsafe_allow_html=True)
     st.markdown("---")
