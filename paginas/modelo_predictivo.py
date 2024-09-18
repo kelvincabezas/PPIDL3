@@ -27,34 +27,7 @@ def display():
     Comencemos visualizando algunos gráficos estadisticos referentes a la actividad pesquera de la zona
     """)
 
-    # Agrupar por especie y aparejo, sumando los kilos
-    df_agrupado_kilos = df.groupby(['Especie', 'Aparejo'])['Volumen_Kg'].sum().unstack()
-
-    # Ordenar los datos por la suma total de kilos para cada especie (de menor a mayor)
-    df_agrupado_kilos = df_agrupado_kilos.loc[df_agrupado_kilos.sum(axis=1).sort_values().index]
-
-    # Seleccionar el tipo de gráfico para los kilos
-    opcion_kilos = st.radio("Selecciona el tipo de gráfico para visualizar la distribución de la captura", ('Escala Normal', 'Escala Logarítmica'), key='kilos')
-
-    # Crear el gráfico interactivo con Plotly
-    if opcion_kilos == 'Escala Normal':
-        st.subheader('Captura total por especie')
-        fig = px.bar(df_agrupado_kilos, 
-                    title='Captura total por especie',
-                    labels={'value': 'Kilos', 'index': 'Especie'},
-                    text_auto=True)
-        fig.update_layout(yaxis_title='Kilos', xaxis_title='Especie', xaxis_tickangle=-45)
-    else:
-        st.subheader('Captura total por especie (Escala Logarítmica)')
-        fig = px.bar(df_agrupado_kilos, 
-                    title='Captura total por especie (Escala Logarítmica)',
-                    labels={'value': 'Kilos', 'index': 'Especie'},
-                    log_y=True,
-                    text_auto=True)
-        fig.update_layout(yaxis_title='Kilos (Logarítmico)', xaxis_title='Especie', xaxis_tickangle=-45)
-
-    # Mostrar el gráfico en Streamlit
-    st.plotly_chart(fig)
+   
 
     # Agrupar los datos por 'Especie' y sumar las ganancias
     ventas_por_especie = df.groupby('Especie')['Ganancia'].sum().sort_values()
