@@ -30,4 +30,4 @@ def create_sidebar():
     elif selected == "EDA":
         eda.display()
     elif selected == "Modelo Predictivo":
-        aviones.display()
+        modelo_predictivo.display()
