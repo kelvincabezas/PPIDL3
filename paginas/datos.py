@@ -130,39 +130,7 @@ def display():
             5. **Cierre y limpieza**: Una vez finalizado el proceso de extracción para todas las combinaciones, el script cierra el navegador para terminar la sesión. Este paso es crucial para liberar recursos y evitar problemas de rendimiento en el sistema.
             """)
         
-
-    with colder:
-        st.code("""
-        driver = webdriver.Firefox()
-        driver.get(url)
-
-        preselecciones(driver)
-
-        for aeropuerto in listado_aeropuertos:
-            select_aeropuerto = Select(driver.find_element(By.NAME, "cboAirport"))
-            select_aeropuerto.select_by_visible_text(aeropuerto)
-
-            for aerolinea in listado_aerolineas:
-                select_aerolinea = Select(driver.find_element(By.NAME, "cboAirline"))
-                select_aerolinea.select_by_visible_text(aerolinea)
-
-                click_submit = driver.find_element(By.ID, "btnSubmit").click()
-                driver.execute_script("window.scrollBy(0, 200);")
-
-                try:
-                    element = WebDriverWait(driver, 3).until(
-                        EC.presence_of_element_located((By.ID, "DL_CSV")))
-                    element.click()
-                except:
-                    pass
-
-        driver.quit()
-        """, language='python')
-        st.markdown("""
-            Este proceso está diseñado para ser lo más eficiente posible, minimizando la interacción humana y maximizando la precisión y la repetibilidad del proceso de extracción. La automatización mediante Selenium permite un control detallado sobre el navegador, crucial para interactuar con elementos web que de otro modo serían inaccesibles mediante métodos de extracción de datos más estáticos.
-            """)
-
-    st.markdown("<br><br><br>", unsafe_allow_html=True)
+ 
  
 # Llama a la función para mostrar la página
 display()
