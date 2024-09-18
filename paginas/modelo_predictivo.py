@@ -27,63 +27,7 @@ def display():
     Comencemos visualizando algunos gráficos estadisticos referentes a la actividad pesquera de la zona
     """)
 
-   
-
-    # Agrupar los datos por 'Especie' y sumar las ganancias
-    ventas_por_especie = df.groupby('Especie')['Ganancia'].sum().sort_values()
-
-    # Convertir el resultado en un DataFrame para Plotly
-    df_ventas = ventas_por_especie.reset_index()
-    df_ventas.columns = ['Especie', 'Ganancia']
-
-    # Seleccionar el tipo de gráfico para las ganancias
-    opcion_ganancia = st.radio("Selecciona el tipo de gráfico para visualizar las ganancias según la especie", ('Escala Normal', 'Escala Logarítmica'), key='escala_ganancia')
-
-    # Crear el gráfico interactivo con Plotly
-    if opcion_ganancia == 'Escala Normal':
-        fig = px.bar(df_ventas, 
-                    x='Especie', 
-                    y='Ganancia', 
-                    title='Ganancia por Especie (Escala Normal)', 
-                    labels={'Ganancia': 'Ganancia (Suma Total)', 'Especie': 'Especie'},
-                    color='Ganancia',
-                    text='Ganancia')
-        fig.update_layout(xaxis_title='Especie', yaxis_title='Ganancia (Suma Total)', xaxis_tickangle=-45)
-    else:
-        fig = px.bar(df_ventas, 
-                    x='Especie', 
-                    y='Ganancia', 
-                    title='Ganancia por Especie (Escala Logarítmica)', 
-                    labels={'Ganancia': 'Ganancia (Suma Total)', 'Especie': 'Especie'},
-                    color='Ganancia',
-                    text='Ganancia',
-                    log_y=True)
-        fig.update_layout(xaxis_title='Especie', yaxis_title='Ganancia (Suma Total) (Logarítmica)', xaxis_tickangle=-45)
-
-    # Mostrar el gráfico en Streamlit
-    st.plotly_chart(fig)
-
-    # Selección de la especie
-    especie_seleccionada = st.selectbox('Selecciona la especie', df['Especie'].unique())
-
-    # Filtrar los datos según la especie seleccionada
-    df_filtrado = df[df['Especie'] == especie_seleccionada]
-
-    # Crear el gráfico de barras utilizando matplotlib
-    fig, ax = plt.subplots(figsize=(10, 6))
-
-    # Crear el mapa centrado en la ubicación media
-    mapa = folium.Map(location=[df_filtrado['Origen_Latitud'].mean(), df_filtrado['Origen_Longuitud'].mean()], zoom_start=6)
-
-    # Añadir marcadores al mapa
-    for idx, row in df_filtrado.iterrows():
-        folium.Marker(
-            location=[row['Origen_Latitud'], row['Origen_Longuitud']],
-            popup=row['Origen']
-        ).add_to(mapa)
-
-    # Mostrar el mapa en Streamlit
-    folium_static(mapa)
+    
 
     # Título de la aplicación
     st.title('Distribución de Precio por Kg ponderada por Volumen en Kg')
