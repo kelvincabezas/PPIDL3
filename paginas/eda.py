@@ -472,108 +472,108 @@ def entrenar_modelo_con_curvas(X_train, y_train, X_val, y_val, n_estimators=100)
     
     return modelo, train_errors, val_errors
 
-# Procesar los datos
-X, y = procesar_datos(df_normalized, seleccion, es_embarcacion=(opcion == "Embarcación"))
+    # Procesar los datos
+    X, y = procesar_datos(df_normalized, seleccion, es_embarcacion=(opcion == "Embarcación"))
 
-if X is not None and y is not None:
-    if len(X) > 1:
-        X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
-        modelo_rf, train_errors, val_errors = entrenar_modelo_con_curvas(X_train, y_train, X_val, y_val)
+    if X is not None and y is not None:
+        if len(X) > 1:
+            X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+            modelo_rf, train_errors, val_errors = entrenar_modelo_con_curvas(X_train, y_train, X_val, y_val)
 
-        # Curvas de entrenamiento y validación
-        st.subheader(f'Curvas de Entrenamiento y Validación - {seleccion} ({opcion})')
-        st.markdown("""
-        Estas curvas muestran cómo de bien nuestro modelo está aprendiendo a predecir el volumen de captura. Si el error de validación es cercano al error de entrenamiento, significa que el modelo es bastante preciso y no se está sobreajustando a los datos de entrenamiento.
-        """)
+            # Curvas de entrenamiento y validación
+            st.subheader(f'Curvas de Entrenamiento y Validación - {seleccion} ({opcion})')
+            st.markdown("""
+            Estas curvas muestran cómo de bien nuestro modelo está aprendiendo a predecir el volumen de captura. Si el error de validación es cercano al error de entrenamiento, significa que el modelo es bastante preciso y no se está sobreajustando a los datos de entrenamiento.
+            """)
 
-        fig = go.Figure()
+            fig = go.Figure()
 
-        # Añadir líneas para los errores de entrenamiento y validación
-        fig.add_trace(go.Scatter(x=list(range(1, len(train_errors) + 1)), y=train_errors, mode='lines', name='Error de Entrenamiento'))
-        fig.add_trace(go.Scatter(x=list(range(1, len(val_errors) + 1)), y=val_errors, mode='lines', name='Error de Validación'))
+            # Añadir líneas para los errores de entrenamiento y validación
+            fig.add_trace(go.Scatter(x=list(range(1, len(train_errors) + 1)), y=train_errors, mode='lines', name='Error de Entrenamiento'))
+            fig.add_trace(go.Scatter(x=list(range(1, len(val_errors) + 1)), y=val_errors, mode='lines', name='Error de Validación'))
 
-        fig.update_layout(
-            xaxis_title='Número de Árboles',
-            yaxis_title='Error Cuadrático Medio',
-            title='Curvas de Entrenamiento y Validación',
-            template='plotly_dark'
-        )
+            fig.update_layout(
+                xaxis_title='Número de Árboles',
+                yaxis_title='Error Cuadrático Medio',
+                title='Curvas de Entrenamiento y Validación',
+                template='plotly_dark'
+            )
 
-        st.plotly_chart(fig)
+            st.plotly_chart(fig)
 
-        # Importancia de características
-        st.subheader(f'Importancia de Características - {seleccion} ({opcion})')
-        st.markdown("""
-        La importancia de características nos ayuda a entender cuáles variables son más influyentes en la predicción del volumen de captura. Estas son como los ingredientes principales de una receta, donde algunos tienen un mayor impacto en el resultado final.
-        """)
+            # Importancia de características
+            st.subheader(f'Importancia de Características - {seleccion} ({opcion})')
+            st.markdown("""
+            La importancia de características nos ayuda a entender cuáles variables son más influyentes en la predicción del volumen de captura. Estas son como los ingredientes principales de una receta, donde algunos tienen un mayor impacto en el resultado final.
+            """)
 
-        importances = modelo_rf.feature_importances_
-        indices = X_train.columns
-        feature_importances = pd.Series(importances, index=indices).sort_values(ascending=False)
-        
-        # Mostrar la característica más influyente
-        caracteristica_principal = feature_importances.idxmax()
-        st.markdown(f"**La característica más influyente es:** `{caracteristica_principal}`, lo que indica que esta variable tiene el mayor impacto en la predicción del volumen de captura.")
+            importances = modelo_rf.feature_importances_
+            indices = X_train.columns
+            feature_importances = pd.Series(importances, index=indices).sort_values(ascending=False)
+            
+            # Mostrar la característica más influyente
+            caracteristica_principal = feature_importances.idxmax()
+            st.markdown(f"**La característica más influyente es:** `{caracteristica_principal}`, lo que indica que esta variable tiene el mayor impacto en la predicción del volumen de captura.")
 
-        if 'Hora_Venta' in feature_importances.index:
-            feature_importances = feature_importances.drop('Hora_Venta')
+            if 'Hora_Venta' in feature_importances.index:
+                feature_importances = feature_importances.drop('Hora_Venta')
 
-        fig = go.Figure()
+            fig = go.Figure()
 
-        # Añadir las barras de importancia
-        fig.add_trace(go.Bar(x=feature_importances.index, y=feature_importances.values, marker_color='magenta'))
+            # Añadir las barras de importancia
+            fig.add_trace(go.Bar(x=feature_importances.index, y=feature_importances.values, marker_color='magenta'))
 
-        fig.update_layout(
-            xaxis_title='Características',
-            yaxis_title='Importancia',
-            title=f'Importancia de Características - {seleccion} ({opcion})',
-            template='plotly_dark'
-        )
+            fig.update_layout(
+                xaxis_title='Características',
+                yaxis_title='Importancia',
+                title=f'Importancia de Características - {seleccion} ({opcion})',
+                template='plotly_dark'
+            )
 
-        st.plotly_chart(fig)
+            st.plotly_chart(fig)
 
-        # Valores reales vs predichos
-        st.subheader(f'Valores Reales vs Predichos - {seleccion} ({opcion})')
-        st.markdown("""
-        Este gráfico compara nuestras predicciones con los valores reales observados. Si los puntos se alinean bien con la línea diagonal, significa que nuestro modelo está haciendo un buen trabajo prediciendo el volumen de captura.
-        """)
+            # Valores reales vs predichos
+            st.subheader(f'Valores Reales vs Predichos - {seleccion} ({opcion})')
+            st.markdown("""
+            Este gráfico compara nuestras predicciones con los valores reales observados. Si los puntos se alinean bien con la línea diagonal, significa que nuestro modelo está haciendo un buen trabajo prediciendo el volumen de captura.
+            """)
 
-        y_val_pred = modelo_rf.predict(X_val)
+            y_val_pred = modelo_rf.predict(X_val)
 
-        fig = go.Figure()
+            fig = go.Figure()
 
-        # Añadir puntos para valores reales vs predichos
-        fig.add_trace(go.Scatter(x=y_val, y=y_val_pred, mode='markers', name='Valores Reales vs Predichos', marker=dict(color='cyan', opacity=0.5)))
+            # Añadir puntos para valores reales vs predichos
+            fig.add_trace(go.Scatter(x=y_val, y=y_val_pred, mode='markers', name='Valores Reales vs Predichos', marker=dict(color='cyan', opacity=0.5)))
 
-        # Añadir línea de referencia
-        fig.add_trace(go.Scatter(x=[y_val.min(), y_val.max()], y=[y_val.min(), y_val.max()], mode='lines', name='Línea de Referencia', line=dict(color='red', dash='dash')))
+            # Añadir línea de referencia
+            fig.add_trace(go.Scatter(x=[y_val.min(), y_val.max()], y=[y_val.min(), y_val.max()], mode='lines', name='Línea de Referencia', line=dict(color='red', dash='dash')))
 
-        fig.update_layout(
-            xaxis_title='Valores Reales',
-            yaxis_title='Valores Predichos',
-            title=f'Valores Reales vs Predichos - {seleccion} ({opcion})',
-            template='plotly_dark'
-        )
+            fig.update_layout(
+                xaxis_title='Valores Reales',
+                yaxis_title='Valores Predichos',
+                title=f'Valores Reales vs Predichos - {seleccion} ({opcion})',
+                template='plotly_dark'
+            )
 
-        st.plotly_chart(fig)
+            st.plotly_chart(fig)
 
-        # Mostrar métricas del modelo
-        st.subheader('Métricas del Modelo')
-        st.markdown("""
-        Aquí se muestran algunas métricas clave que nos indican cuán bien está funcionando nuestro modelo:
-        - **MSE (Error Cuadrático Medio):** Indica qué tan lejos están, en promedio, nuestras predicciones de los valores reales.
-        - **MAE (Error Absoluto Medio):** Muestra el promedio de las diferencias absolutas entre las predicciones y los valores reales.
-        - **R2 (Coeficiente de Determinación):** Nos dice qué tan bien las variables explican la variabilidad del resultado.
-        """)
+            # Mostrar métricas del modelo
+            st.subheader('Métricas del Modelo')
+            st.markdown("""
+            Aquí se muestran algunas métricas clave que nos indican cuán bien está funcionando nuestro modelo:
+            - **MSE (Error Cuadrático Medio):** Indica qué tan lejos están, en promedio, nuestras predicciones de los valores reales.
+            - **MAE (Error Absoluto Medio):** Muestra el promedio de las diferencias absolutas entre las predicciones y los valores reales.
+            - **R2 (Coeficiente de Determinación):** Nos dice qué tan bien las variables explican la variabilidad del resultado.
+            """)
 
-        mse = mean_squared_error(y_val, y_val_pred)
-        mae = mean_absolute_error(y_val, y_val_pred)
-        r2 = r2_score(y_val, y_val_pred)
+            mse = mean_squared_error(y_val, y_val_pred)
+            mae = mean_absolute_error(y_val, y_val_pred)
+            r2 = r2_score(y_val, y_val_pred)
 
-        st.write(f"MSE (Error Cuadrático Medio): {mse:.4f}")
-        st.write(f"MAE (Error Absoluto Medio): {mae:.4f}")
-        st.write(f"R2 (Coeficiente de Determinación): {r2:.4f}")
-        
-    else:
-        st.error("No hay suficientes datos para dividir en conjuntos de entrenamiento y validación.")
+            st.write(f"MSE (Error Cuadrático Medio): {mse:.4f}")
+            st.write(f"MAE (Error Absoluto Medio): {mae:.4f}")
+            st.write(f"R2 (Coeficiente de Determinación): {r2:.4f}")
+            
+        else:
+            st.error("No hay suficientes datos para dividir en conjuntos de entrenamiento y validación.")
  
