@@ -18,5 +18,4 @@ def display():
     st.write("### Vista previa de los datos")
     st.write(df.head())
  
-# Llama a la función para mostrar la página
-display()
+ 
