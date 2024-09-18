@@ -19,7 +19,7 @@ def create_sidebar():
     # Crear el menú de opciones en el sidebar con option_menu
     with st.sidebar:
         selected = option_menu("Menú", ["Inicio", "Datos", "EDA", "Modelo Predictivo"],
-            icons=["house", "database", "bar-chart-line", "airplane"],
+            icons=["house", "database", "bar-chart-line", "ship"],
             menu_icon="cast", default_index=0, orientation="vertical")
 
     # Llama a la función de la página correspondiente en función de la selección
