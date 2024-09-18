@@ -31,6 +31,10 @@ def display():
     scaler = MinMaxScaler()
 
     df_ = df.drop(columns=['Inicio_Faena', 'Inicio_Venta'])
+
+    # Seleccionamos las columnas numéricas
+    numeric_columns = df_.select_dtypes(include=['int64', 'float64', 'int32']).columns
+
     # Aplicar la normalización
     df_normalized = df_.copy()
     df_normalized[numeric_columns] = scaler.fit_transform(df_[numeric_columns])
