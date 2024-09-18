@@ -37,12 +37,11 @@ def display():
 
             1. Identificar las horas del día más productivas para la pesca artesanal en la caleta Coishco mediante el análisis de la relación entre la hora de captura y el volumen de pesca utilizando modelos predictivos.
 
-            2. **Configuración inicial**: Antes de comenzar la extracción de datos, es crucial configurar correctamente las opciones en el sitio web. Para ello, llamamos a la función `preselecciones` que automatiza la selección de todas las estadísticas relevantes, días específicos, el mes de diciembre y los años 2021, 2022 y 2023. Este paso asegura que los datos que vamos a extraer son precisamente los que necesitamos para nuestro análisis.
+            2. Evaluar la relación entre la talla de los peces y su precio por kilogramo, diferenciando entre las distintas especies capturadas en la caleta Coishco, a través de técnicas de regresión aplicadas en Machine Learning.
 
-            3. **Iteración sobre aeropuertos y aerolíneas**: El script ejecuta un bucle que recorre cada aeropuerto listado y, para cada uno de ellos, un bucle anidado itera sobre cada aerolínea disponible. Esta estructura de bucle doble es fundamental para asegurar que se exploran todas las combinaciones posibles de aeropuertos y aerolíneas.
+            3. Comparar los volúmenes de captura obtenidos en diferentes horarios del día para determinar las condiciones más favorables para la pesca artesanal, utilizando análisis predictivos.
 
-            4. **Extracción de datos**: Durante la iteración, el script intenta seleccionar la combinación específica de aeropuerto y aerolínea y solicita la descarga del archivo .CSV correspondiente. Si la combinación no opera (es decir, no hay datos disponibles), el script omite esta y continúa con la siguiente. Además, se implementa una función de desplazamiento en la página para asegurar que el enlace de descarga está visible y accesible.
+            4. Validar un modelo de Machine Learning que permita predecir el volumen de captura y optimizar la estrategia pesquera en función de las condiciones ambientales y biológicas presentes en la caleta Coishco.
 
-            5. **Cierre y limpieza**: Una vez finalizado el proceso de extracción para todas las combinaciones, el script cierra el navegador para terminar la sesión. Este paso es crucial para liberar recursos y evitar problemas de rendimiento en el sistema.
             """)
         
