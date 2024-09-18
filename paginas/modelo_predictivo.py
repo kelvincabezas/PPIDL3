@@ -27,34 +27,7 @@ def display():
     Comencemos visualizando algunos gráficos estadisticos referentes a la actividad pesquera de la zona
     """)
 
-    
-
-    # Crear el gráfico interactivo con Plotly
-    st.subheader('Distribución de ganancias por Fecha de Faena')
-    fig = px.line(df_agrupado, 
-                x='Inicio_Faena', 
-                y='Ganancia', 
-                title='Distribución de Ganancias por Fecha de Faena',
-                labels={'Inicio_Faena': 'Fecha de Faena', 'Ganancia': 'Ganancia'},
-                markers=True)
-
-    # Personalizar el gráfico
-    fig.update_layout(xaxis_title='Fecha de Faena', yaxis_title='Ganancia', xaxis_tickformat='%Y-%m-%d')
-
-    # Mostrar el gráfico en Streamlit
-    st.plotly_chart(fig)
-
-    # Agrupar las ganancias por fecha de faena
-    df_agrupado = df.groupby('Inicio_Faena')['Costo_Combustible'].sum().reset_index()
-
-    # Crear el gráfico interactivo con Plotly
-    st.subheader('Distribución de Costo Combustible por Fecha de Faena')
-    fig = px.line(df_agrupado, 
-                x='Inicio_Faena', 
-                y='Costo_Combustible', 
-                title='Distribución de Costo Combustible por Fecha de Faena',
-                labels={'Inicio_Faena': 'Fecha de Faena', 'Costo_Combustible': 'Costo_Combustible'},
-                markers=True)
+     
 
     # Personalizar el gráfico
     fig.update_layout(xaxis_title='Fecha de Faena', yaxis_title='Costo Combustible', xaxis_tickformat='%Y-%m-%d')
