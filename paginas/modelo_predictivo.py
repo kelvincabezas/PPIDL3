@@ -27,58 +27,7 @@ def display():
     Comencemos visualizando algunos gráficos estadisticos referentes a la actividad pesquera de la zona
     """)
 
-    
-
-    # Título de la aplicación
-    st.title('Distribución de Precio por Kg ponderada por Volumen en Kg')
-
-    # Crear el histograma ponderado
-    fig = px.histogram(df, x='Precio_Kg', y='Volumen_Kg', 
-                    histfunc='sum', 
-                    nbins=24, 
-                    title='Distribución de Precio por Kg ponderada por Volumen en Kg')
-
-    # Actualizar etiquetas del gráfico
-    fig.update_layout(xaxis_title='Precio por Kg', 
-                    yaxis_title='Volumen en Kg', 
-                    bargap=0.1)
-
-    # Mostrar el gráfico en Streamlit
-    st.plotly_chart(fig)
-
-    # Título de la aplicación
-    st.title('Distribución de Precio por Kg ponderada por Talla en cm')
-
-    # Crear el histograma ponderado
-    fig = px.histogram(df, x='Talla_cm', y='Volumen_Kg', 
-                    histfunc='sum', 
-                    nbins=24, 
-                    title='Distribución de Precio por Kg ponderada por Talla en cm')
-
-    # Actualizar etiquetas del gráfico
-    fig.update_layout(xaxis_title='Talla en cm', 
-                    yaxis_title='Volumen en Kg', 
-                    bargap=0.1)
-
-    # Mostrar el gráfico en Streamlit
-    st.plotly_chart(fig)
-
-    # Título de la aplicación
-    st.title('Distribución de Precio por Kg ponderada por Millas Recorridas')
-
-    # Crear el histograma ponderado
-    fig = px.histogram(df, x='Millas_Recorridas', y='Volumen_Kg', 
-                    histfunc='sum', 
-                    nbins=24, 
-                    title='Distribución de Precio por Kg ponderada por Millas Recorridas')
-
-    # Actualizar etiquetas del gráfico
-    fig.update_layout(xaxis_title='Millas Recorridas', 
-                    yaxis_title='Volumen en Kg', 
-                    bargap=0.1)
-
-    # Mostrar el gráfico en Streamlit
-    st.plotly_chart(fig)
+     
 
     # Agrupar por Marca de Motor y Caballos de fuerza, sumando los kilos
     df_agrupado = df.groupby(['Marca_Motor', 'Caballos_Motor'])['Volumen_Kg'].sum().unstack()
