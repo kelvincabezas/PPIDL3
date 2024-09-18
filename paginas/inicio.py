@@ -10,7 +10,7 @@ def display():
     
     st.markdown("""
         <div style='text-align: justify;'>
-            <h4 style='text-align: center;'>Herramientas y Tecnologías</h4>
+            <h4 style='text-align: center;'>Introducción</h4>
             La pesca de peces juveniles es una práctica desalentada por el Ministerio de la Producción según la Resolución 
             Ministerial Nº 209-2001-PE, la cual regula las “Tallas Mínimas de Captura y Tolerancia Máxima de Ejemplares 
             Juveniles de los Peces e Invertebrados Marinos”. Esta normativa establece que la extracción de especies de flora 
