@@ -27,6 +27,7 @@ def display():
     Comencemos visualizando algunos gráficos estadisticos referentes a la actividad pesquera de la zona
     """)
 
+    df_ = df.drop(columns=['Inicio_Faena', 'Inicio_Venta'])
     # Aplicar la normalización
     df_normalized = df_.copy()
     df_normalized[numeric_columns] = scaler.fit_transform(df_[numeric_columns])
