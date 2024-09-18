@@ -14,7 +14,7 @@ from sklearn.preprocessing import MinMaxScaler
 from streamlit_folium import folium_static
 
 def display():
-    st.markdown("<h2 style='text-align: center;'>Página de análisis exploratorio de datos (EDA)</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Modelo Predictivo</h2>", unsafe_allow_html=True)
     st.markdown("---")
     if 'subpagina_eda' not in st.session_state:
         st.markdown("<h4 style='text-align: center;'>En esta sección de nuestro proyecto, te ofrecemos la oportunidad de explorar un análisis detallado de los datos a través de diversos gráficos y visualizaciones. Este espacio está diseñado para que puedas entender mejor y analizar de forma intuitiva la información que hemos recopilado.</h4>", unsafe_allow_html=True)
