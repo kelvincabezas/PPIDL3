@@ -412,36 +412,35 @@ def display():
         yaxis={'side': 'left'}
     )
 
+    # Mostrar el gráfico en Streamlit
+    st.plotly_chart(fig)
 
-# Mostrar el gráfico en Streamlit
-st.plotly_chart(fig)
+    # Descargar la matriz de correlación
+    st.subheader('Descargar Matriz de Correlación')
+    csv = correlation_matrix.to_csv(index=True)
+    st.download_button(label="Descargar Matriz de Correlación como CSV",
+                    data=csv,
+                    file_name='matriz_correlacion.csv',
+                    mime='text/csv')
 
-# Descargar la matriz de correlación
-st.subheader('Descargar Matriz de Correlación')
-csv = correlation_matrix.to_csv(index=True)
-st.download_button(label="Descargar Matriz de Correlación como CSV",
-                   data=csv,
-                   file_name='matriz_correlacion.csv',
-                   mime='text/csv')
+    # Seleccionar la opción (especie o embarcación)
+    opcion = st.selectbox("Seleccionar el enfoque", ["Embarcación", "Especie"], key="enfoque_selectbox")
 
-# Seleccionar la opción (especie o embarcación)
-opcion = st.selectbox("Seleccionar el enfoque", ["Embarcación", "Especie"], key="enfoque_selectbox")
+    # Clave única para cada selección
+    if opcion == "Embarcación":
+        seleccion = st.selectbox("Seleccionar la embarcación", df_normalized['Embarcacion'].unique(), key="embarcacion_selectbox")
+    else:
+        seleccion = st.selectbox("Seleccionar la especie", df_normalized['Especie'].unique(), key="especie_selectbox")
 
-# Clave única para cada selección
-if opcion == "Embarcación":
-    seleccion = st.selectbox("Seleccionar la embarcación", df_normalized['Embarcacion'].unique(), key="embarcacion_selectbox")
-else:
-    seleccion = st.selectbox("Seleccionar la especie", df_normalized['Especie'].unique(), key="especie_selectbox")
-
-# Mostrar la imagen si la opción es "Especie"
-if opcion == "Especie":
-    especie_seleccionada = seleccion
-    ruta_imagen = f"resources/{especie_seleccionada}.png"
-    
-    try:
-        st.image(ruta_imagen, caption=f"Especie: {especie_seleccionada}", use_column_width=True)
-    except FileNotFoundError:
-        st.error(f"No se encontró la imagen para la especie: {especie_seleccionada}")
+    # Mostrar la imagen si la opción es "Especie"
+    if opcion == "Especie":
+        especie_seleccionada = seleccion
+        ruta_imagen = f"resources/{especie_seleccionada}.png"
+        
+        try:
+            st.image(ruta_imagen, caption=f"Especie: {especie_seleccionada}", use_column_width=True)
+        except FileNotFoundError:
+            st.error(f"No se encontró la imagen para la especie: {especie_seleccionada}")
 
 def procesar_datos(df, seleccion, es_embarcacion=True):
     if es_embarcacion:
