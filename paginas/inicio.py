@@ -27,11 +27,13 @@ def display():
     """, unsafe_allow_html=True)
     
     st.markdown("<h3 style='text-align: center;'>Objetivos</h3><br>", unsafe_allow_html=True)
-    colizq, colder = st.columns(2)
+    colizq, colder = st.columns(1)
     with colizq:
         
         st.markdown("""
-            Este script automatiza completamente el proceso de extracción de datos de la página web para cada combinación de aeropuertos y aerolíneas. A continuación se detallan los pasos clave del proceso:
+            Como objetivo general planteamos el siguiente:
+            Determinar las condiciones óptimas para la pesca y su impacto en el valor comercial de diferentes especies, considerando la mejor hora para pescar y la relación entre la talla y el precio.
+
 
             1. **Inicialización del navegador**: Utilizamos Selenium para iniciar una instancia del navegador Firefox, lo cual nos permite cargar la URL específica desde donde se extraerán los datos. Este enfoque simula una sesión de navegación real, esencial para interactuar con los elementos web dinámicos.
 
