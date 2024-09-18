@@ -8,10 +8,10 @@ def create_sidebar():
     st.sidebar.markdown(
         f'<div style="text-align: center; font-size: 18px; margin-bottom: 30px;">'
         f'Proyecto realizado por<br>'
-        f'APAZA PEREZ OSCAR GONZALO'
-        f'CABEZAS HUANIO RUBEN KELVIN'
-        f'RUIZ ALVA JERSON ENMANUEL'
-        f'PONCE DE LEON TORRES FABYOLA KORAYMA'
+        f'APAZA PEREZ OSCAR GONZALO<br>'
+        f'CABEZAS HUANIO RUBEN KELVIN<br>'
+        f'RUIZ ALVA JERSON ENMANUEL<br>'
+        f'PONCE DE LEON TORRES FABYOLA KORAYMA<br>'
         f'</div>',
         unsafe_allow_html=True
     )
