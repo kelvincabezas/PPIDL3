@@ -27,59 +27,7 @@ def display():
     Comencemos visualizando algunos gráficos estadisticos referentes a la actividad pesquera de la zona
     """)
 
-     
-    # Graficar la distribución de las ventas por hora del día
-    st.subheader('Distribución de las Ventas por Hora del Día')
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.histplot(df_, x='HFloat_Venta', weights='Venta', bins=24, kde=True)
-    ax.set_xlabel('Hora del Día')
-    ax.set_ylabel('Distribución de las Ventas')
-    ax.set_title('Distribución de las Ventas por Hora del Día')
-    st.pyplot(fig)
-
-    # Seleccionamos las columnas numéricas
-    numeric_columns = df_.select_dtypes(include=['int64', 'float64', 'int32']).columns
-
-    # Crear el escalador
-    scaler = MinMaxScaler()
-
-    # Aplicar la normalización
-    df_normalized = df_.copy()
-    df_normalized[numeric_columns] = scaler.fit_transform(df_[numeric_columns])
-
-    st.write("### Datos normalizados")
-    st.write(df_normalized.head())
-
-    # Calcular y graficar la matriz de correlación
-    st.subheader('Matriz de Correlación')
-
-    # Seleccionar las columnas para la matriz de correlación
-    selected_columns = ['Caballos_Motor', 'Millas_Recorridas', 'Volumen_Kg', 'Precio_Kg', 
-                        'Talla_cm', 'Venta', 'Costo_Combustible', 'Ganancia', 
-                        'HFloat_Faena', 'HFloat_Venta', 'Origen_Latitud', 'Origen_Longuitud', 'Mes_Faena']
-
-    # Calcular la matriz de correlación
-    correlation_matrix = df_normalized[selected_columns].corr()
-
-    # Crear el gráfico interactivo con Plotly
-    fig = px.imshow(correlation_matrix,
-                    labels={'x': 'Variables', 'y': 'Variables', 'color': 'Correlación'},
-                    x=correlation_matrix.columns,
-                    y=correlation_matrix.columns,
-                    color_continuous_scale='Magma',
-                    aspect='auto')
-
-    # Personalizar el diseño del gráfico
-    fig.update_layout(
-        title='Matriz de Correlación entre Variables',
-        coloraxis_showscale=True,
-        xaxis={'side': 'bottom'},
-        yaxis={'side': 'left'}
-    )
-
-    # Mostrar el gráfico en Streamlit
-    st.plotly_chart(fig)
-
+ 
     # Descargar la matriz de correlación
     st.subheader('Descargar Matriz de Correlación')
     csv = correlation_matrix.to_csv(index=True)
