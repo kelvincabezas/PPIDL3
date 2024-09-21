@@ -92,16 +92,24 @@ def procesar_datos(df, seleccion, es_embarcacion=True):
         df_seleccion = df[df['Embarcacion'] == seleccion]
     else:
         df_seleccion = df[df['Especie'] == seleccion]
-    
+
     if df_seleccion.empty:
-        st.error(f"No se encontraron datos para la {'embarcación' 'si es_embarcacion  else  especie'}: {seleccion}")
+        st.error(f"No se encontraron datos para la {'embarcación' if es_embarcacion else 'especie'}: {seleccion}")
         return None, None
 
-    # Codificar variables categóricas con OneHotEncoding
-    df_seleccion = pd.get_dummies(df_seleccion, columns=['Modelo_Motor', 'Origen', 'Aparejo', 'Hora_Faena', 'Precio_Float', 'Talla_Float', 'Mes', 'Dia_Semana'], drop_first=True)
+    # Verificar qué columnas están presentes antes de aplicar get_dummies
+    columnas_categoricas = ['Modelo_Motor', 'Origen', 'Aparejo', 'Hora_Faena', 'Precio_Float', 'Talla_Float', 'Mes_Float']
+    
+    # Crear una lista de columnas que sí existan en el DataFrame
+    columnas_existentes = [col for col in columnas_categoricas if col in df_seleccion.columns]
+    
+    if columnas_existentes:
+        df_seleccion = pd.get_dummies(df_seleccion, columns=columnas_existentes, drop_first=True)
 
-    # Eliminar columnas irrelevantes para el modelo
-    X = df_seleccion.drop(columns=['Embarcacion', 'Especie', 'Volumen_Kg', 'Talla_cm', 'Precio_Kg', 'Venta', 'Ganancia', 'Origen_Latitud', 'Origen_Longuitud', 'HFloat_Venta', 'HFloat_Faena'])
+    # Continuar con el procesamiento de las otras columnas
+    X = df_seleccion.drop(columns=['Embarcacion', 'Especie', 'Volumen_Kg', 'Talla_cm', 'Precio_Kg', 'Venta', 'Ganancia', 
+                                   'Origen_Latitud', 'Origen_Longuitud', 'HFloat_Venta', 'HFloat_Faena', 'Mes_Faena', 
+                                   'Marca_Motor'], errors='ignore')
     y = df_seleccion['Volumen_Kg'].fillna(0)
     
     return X.apply(pd.to_numeric, errors='coerce').fillna(0), y
