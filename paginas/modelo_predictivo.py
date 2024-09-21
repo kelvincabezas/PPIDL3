@@ -35,16 +35,6 @@ def display():
     df['HFloat_Faena'] = df['Inicio_Faena'].dt.hour + df['Inicio_Faena'].dt.minute / 60
     df['HFloat_Venta'] = df['Inicio_Venta'].dt.hour + df['Inicio_Venta'].dt.minute / 60
 
-    # Función para categorizar la hora en intervalos de 2 horas considerando A.M. y P.M.
-    def categorize_hour(hour):
-        period = "A.M." if hour < 12 else "P.M."
-        hour_12 = hour % 12
-        hour_12 = 12 if hour_12 == 0 else hour_12
-        start_hour = hour_12
-        end_hour = (hour_12 + 2) % 12
-        end_hour = 12 if end_hour == 0 else end_hour
-        return f"{start_hour:02d} - {end_hour:02d} {period}"
-
     # Aplicar la función para categorizar las horas en 'Inicio_Faena' y 'Inicio_Venta'
     df['Hora_Faena'] = df['Inicio_Faena'].dt.hour.apply(categorize_hour)
 
@@ -243,3 +233,12 @@ def display():
         else:
             st.error("No hay suficientes datos para dividir en conjuntos de entrenamiento y validación.")
 
+# Función para categorizar la hora en intervalos de 2 horas considerando A.M. y P.M.
+def categorize_hour(hour):
+    period = "A.M." if hour < 12 else "P.M."
+    hour_12 = hour % 12
+    hour_12 = 12 if hour_12 == 0 else hour_12
+    start_hour = hour_12
+    end_hour = (hour_12 + 2) % 12
+    end_hour = 12 if end_hour == 0 else end_hour
+    return f"{start_hour:02d} - {end_hour:02d} {period}"
