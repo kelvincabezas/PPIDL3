@@ -109,10 +109,7 @@ def display():
             # Curvas de entrenamiento y validación
             st.markdown('<h3 style="color:blue;">Modelo de Entrenamiento Random Forest</h3>', unsafe_allow_html=True)
             st.subheader(f'Curvas de Entrenamiento y Validación - {seleccion} ({opcion})')
-            st.markdown("""  <p style="color:red;">
-            Estas curvas muestran cómo de bien nuestro modelo está aprendiendo a predecir el volumen de captura. Si el error de validación es cercano al error de entrenamiento, significa que el modelo es bastante preciso y no se está sobreajustando a los datos de entrenamiento.
-              </p>
-            """)
+            st.markdown('<p style="color:red;">Estas curvas muestran cómo de bien nuestro modelo está aprendiendo a predecir el volumen de captura. Si el error de validación es cercano al error de entrenamiento, significa que el modelo es bastante preciso y no se está sobreajustando a los datos de entrenamiento.</p>', unsafe_allow_html=True)
 
             fig = go.Figure()
 
