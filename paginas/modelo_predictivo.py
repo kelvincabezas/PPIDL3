@@ -107,7 +107,7 @@ def display():
             modelo_rf, train_errors, val_errors = entrenar_modelo_con_curvas(X_train, y_train, X_val, y_val)
 
             # Curvas de entrenamiento y validación
-            st.subheader(f'Modelo de entreanmiento Random Forest')
+            st.subheader(f'Modelo de Entrenamiento Random Forest')
             st.subheader(f'Curvas de Entrenamiento y Validación - {seleccion} ({opcion})')
             st.markdown("""
             Estas curvas muestran cómo de bien nuestro modelo está aprendiendo a predecir el volumen de captura. Si el error de validación es cercano al error de entrenamiento, significa que el modelo es bastante preciso y no se está sobreajustando a los datos de entrenamiento.
