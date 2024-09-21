@@ -98,36 +98,6 @@ def display():
         except FileNotFoundError:
             st.error(f"No se encontró la imagen para la especie: {especie_seleccionada}")
 
-    def procesar_datos(df, seleccion, es_embarcacion=True):
-        if es_embarcacion:
-            df_seleccion = df[df['Embarcacion'] == seleccion]
-        else:
-            df_seleccion = df[df['Especie'] == seleccion]
-        
-        if df_seleccion.empty:
-            st.error(f"No se encontraron datos para la {'embarcación' if es_embarcacion else 'especie'}: {seleccion}")
-            return None, None
-        
-        df_seleccion = pd.get_dummies(df_seleccion, columns=['Modelo_Motor', 'Origen', 'Aparejo', 'Hora_Faena', 'Precio_Float', 'Talla_Float', 'Mes_Float'], drop_first=True)
-        X = df_seleccion.drop(columns=['Embarcacion', 'Especie', 'Volumen_Kg', 'Talla_cm', 'Precio_Kg', 'Venta', 'Ganancia', 'Origen_Latitud', 'Origen_Longuitud', 'HFloat_Venta', 'HFloat_Faena', 'Mes_Faena', 'Marca_Motor'])
-        y = df_seleccion['Volumen_Kg'].fillna(0)
-        
-        return X.apply(pd.to_numeric, errors='coerce').fillna(0), y
-
-    def entrenar_modelo_con_curvas(X_train, y_train, X_val, y_val, n_estimators=100):
-        train_errors = []
-        val_errors = []
-        modelo = RandomForestRegressor(warm_start=True, random_state=42)
-        
-        for i in range(1, n_estimators + 1):
-            modelo.set_params(n_estimators=i)
-            modelo.fit(X_train, y_train)
-            
-            train_errors.append(mean_squared_error(y_train, modelo.predict(X_train)))
-            val_errors.append(mean_squared_error(y_val, modelo.predict(X_val)))
-        
-        return modelo, train_errors, val_errors
-
     # Procesar los datos
     X, y = procesar_datos(df_normalized, seleccion, es_embarcacion=(opcion == "Embarcación"))
 
@@ -242,3 +212,33 @@ def categorize_hour(hour):
     end_hour = (hour_12 + 2) % 12
     end_hour = 12 if end_hour == 0 else end_hour
     return f"{start_hour:02d} - {end_hour:02d} {period}"
+
+def procesar_datos(df, seleccion, es_embarcacion=True):
+    if es_embarcacion:
+        df_seleccion = df[df['Embarcacion'] == seleccion]
+    else:
+        df_seleccion = df[df['Especie'] == seleccion]
+    
+    if df_seleccion.empty:
+        st.error(f"No se encontraron datos para la {'embarcación' if es_embarcacion else 'especie'}: {seleccion}")
+        return None, None
+    
+    df_seleccion = pd.get_dummies(df_seleccion, columns=['Modelo_Motor', 'Origen', 'Aparejo', 'Hora_Faena', 'Precio_Float', 'Talla_Float', 'Mes_Float'], drop_first=True)
+    X = df_seleccion.drop(columns=['Embarcacion', 'Especie', 'Volumen_Kg', 'Talla_cm', 'Precio_Kg', 'Venta', 'Ganancia', 'Origen_Latitud', 'Origen_Longuitud', 'HFloat_Venta', 'HFloat_Faena', 'Mes_Faena', 'Marca_Motor'])
+    y = df_seleccion['Volumen_Kg'].fillna(0)
+    
+    return X.apply(pd.to_numeric, errors='coerce').fillna(0), y
+
+def entrenar_modelo_con_curvas(X_train, y_train, X_val, y_val, n_estimators=100):
+    train_errors = []
+    val_errors = []
+    modelo = RandomForestRegressor(warm_start=True, random_state=42)
+    
+    for i in range(1, n_estimators + 1):
+        modelo.set_params(n_estimators=i)
+        modelo.fit(X_train, y_train)
+        
+        train_errors.append(mean_squared_error(y_train, modelo.predict(X_train)))
+        val_errors.append(mean_squared_error(y_val, modelo.predict(X_val)))
+    
+    return modelo, train_errors, val_errors    
