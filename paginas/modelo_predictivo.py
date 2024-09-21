@@ -128,7 +128,7 @@ def display():
 
             # Importancia de características
             st.subheader(f'Importancia de Características - {seleccion} ({opcion})')
-            st.markdown('<p style="color:#2B6CB0;La importancia de características nos ayuda a entender cuáles variables son más influyentes en la predicción del volumen de captura. Estas son como los ingredientes principales de una receta, donde algunos tienen un mayor impacto en el resultado final.</p>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#2B6CB0;">La importancia de características nos ayuda a entender cuáles variables son más influyentes en la predicción del volumen de captura. Estas son como los ingredientes principales de una receta, donde algunos tienen un mayor impacto en el resultado final.</p>', unsafe_allow_html=True)
 
             importances = modelo_rf.feature_importances_
             indices = X_train.columns
