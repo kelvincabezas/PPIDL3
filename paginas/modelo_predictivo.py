@@ -94,7 +94,7 @@ def procesar_datos(df, seleccion, es_embarcacion=True):
         df_seleccion = df[df['Especie'] == seleccion]
     
     if df_seleccion.empty:
-        st.error(f"No se encontraron datos para la {'embarcación' si es_embarcacion else 'especie'}: {seleccion}")
+        st.error(f"No se encontraron datos para la {'embarcación' 'si es_embarcacion  else  especie'}: {seleccion}")
         return None, None
 
     # Codificar variables categóricas con OneHotEncoding
