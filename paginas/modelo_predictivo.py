@@ -1,12 +1,17 @@
+# paginas/eda.py
 import streamlit as st
 import pandas as pd  
+import plotly.express as px
 import plotly.graph_objects as go
+import seaborn as sns
+import folium
+import matplotlib.pyplot as plt
+
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+from sklearn.preprocessing import MinMaxScaler
 from streamlit_folium import folium_static
-import numpy as np
 
 def display():
     st.markdown("<h2 style='text-align: center;'>Modelo Predictivo Mejorado</h2>", unsafe_allow_html=True)
