@@ -109,7 +109,7 @@ def display():
             # Curvas de entrenamiento y validación
             st.markdown('<h3 style="color:blue;">Modelo de Entrenamiento Random Forest</h3>', unsafe_allow_html=True)
             st.subheader(f'Curvas de Entrenamiento y Validación - {seleccion} ({opcion})')
-            st.markdown('<p style="color:#2B6CB0;">Estas curvas muestran cómo de bien nuestro modelo está aprendiendo a predecir el volumen de captura. Si el error de validación es cercano al error de entrenamiento, significa que el modelo es bastante preciso y no se está sobreajustando a los datos de entrenamiento.</p>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#2B6CB0;font-weight: bold;">Estas curvas muestran cómo de bien nuestro modelo está aprendiendo a predecir el volumen de captura. Si el error de validación es cercano al error de entrenamiento, significa que el modelo es bastante preciso y no se está sobreajustando a los datos de entrenamiento.</p>', unsafe_allow_html=True)
 
             fig = go.Figure()
 
@@ -128,7 +128,7 @@ def display():
 
             # Importancia de características
             st.subheader(f'Importancia de Características - {seleccion} ({opcion})')
-            st.markdown('<p style="color:#2B6CB0;">La importancia de características nos ayuda a entender cuáles variables son más influyentes en la predicción del volumen de captura. Estas son como los ingredientes principales de una receta, donde algunos tienen un mayor impacto en el resultado final.</p>', unsafe_allow_html=True)
+            st.markdown('<p style="color:#2B6CB0;font-weight: bold;">La importancia de características nos ayuda a entender cuáles variables son más influyentes en la predicción del volumen de captura. Estas son como los ingredientes principales de una receta, donde algunos tienen un mayor impacto en el resultado final.</p>', unsafe_allow_html=True)
 
             importances = modelo_rf.feature_importances_
             indices = X_train.columns
