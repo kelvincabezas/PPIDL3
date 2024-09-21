@@ -157,9 +157,7 @@ def display():
 
             # Valores reales vs predichos
             st.subheader(f'Valores Reales vs Predichos - {seleccion} ({opcion})')
-            st.markdown("""
-            Este gráfico compara nuestras predicciones con los valores reales observados. Si los puntos se alinean bien con la línea diagonal, significa que nuestro modelo está haciendo un buen trabajo prediciendo el volumen de captura.
-            """)
+            st.markdown('<p style="color:#2B6CB0;">Este gráfico compara nuestras predicciones con los valores reales observados. Si los puntos se alinean bien con la línea diagonal, significa que nuestro modelo está haciendo un buen trabajo prediciendo el volumen de captura.</p>', unsafe_allow_html=True)
 
             y_val_pred = modelo_rf.predict(X_val)
 
