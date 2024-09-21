@@ -165,10 +165,15 @@ def mostrar_valores_reales_vs_predichos(modelo, X_val, y_val, seleccion, opcion)
 def mostrar_metricas(modelo, X_val, y_val):
     y_pred = modelo.predict(X_val)
     
-    # Calcular el Mean Squared Error (MSE)
+    # Calcular métricas
+    mae = mean_absolute_error(y_val, y_pred)
     mse = mean_squared_error(y_val, y_pred)
+    #rmse = np.sqrt(mse)
+    r2 = r2_score(y_val, y_pred)
     
-    # Calcular el Root Mean Squared Error (RMSE)
-    rmse = np.sqrt(mse)
-    
-    st.write(f"RMSE: {rmse}")
+    # Mostrar métricas en Streamlit
+    st.subheader('Métricas del Modelo')
+    st.write(f"**Error Medio Absoluto (MAE)**: {mae:.2f}")
+    st.write(f"**Error Cuadrático Medio (MSE)**: {mse:.2f}")
+    #st.write(f"**Raíz del Error Cuadrático Medio (RMSE)**: {rmse:.2f}")
+    st.write(f"**Coeficiente de Determinación (R²)**: {r2:.2f}")
